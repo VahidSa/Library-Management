@@ -164,16 +164,17 @@ class Object {
 		cin>>this->Name;
 		cout<<"Enter price: ";
 		cin>>this->price;
-		cout<<"Enter Date of publish: ";
+	//	cout<<"Enter Date of publish: ";
 	//	cin>>this->ta;
 	}
 	virtual void Show_obj(){
-		cout<<"Name: "<<this->Name;
-		cout<<"Price: "<<this->price;
+		cout<<"Name: "<<this->Name<<endl;
+		cout<<"Price: "<<this->price<<endl;
 	//	cout<<"Date of publish: "<<this->ta;
 	}
 };
-class Book:Object{
+class Book: public Object{
+public:
 	long int BookISBN;
 	char BookWriter[30];	//string
 	virtual void Scanf_obj(){
@@ -186,47 +187,91 @@ class Book:Object{
 	virtual void Show_obj(){
 		Object::Show_obj();
 		cout<<"ISBN: "<<this->BookISBN<<endl;
-		cout<<"Name of BookWriter: "<<this->BookWriter;
+		cout<<"Name of BookWriter: "<<this->BookWriter<<endl;
+	}
+};
+class Books{
+	Book boo;
+	int BooksNumbers;
+	vector <Book> bo;
+public:
+	virtual void Scanf_obj(){
+		cout<<"How many book details do you want to enter: ";
+		cin>>BooksNumbers;
+		for(int i=0;i<BooksNumbers;i++){
+			bo.push_back(boo);
+			bo[i].Book::Scanf_obj();
+		}
+	}
+	virtual void Show_obj(){
+		for(int i=0;i<bo.size();i++)
+			bo[i].Book::Show_obj();
+	}
+};
+class Newspaper: public Object {
+public:
+	virtual void Scanf_obj(){
+		Object::Scanf_obj();
+	}
+	virtual void Show_obj(){
+		Object::Show_obj();
+	}
+};
+class Newspapers{
+	Newspaper nee;
+	int NewspapersNumbers;
+	vector <Newspaper> ne;
+public:
+	virtual void Scanf_obj(){
+		cout<<"How many newspaper details do you want to enter: ";
+		cin>>NewspapersNumbers;
+		for(int i=0;i<NewspapersNumbers;i++){
+			ne.push_back(nee);
+			ne[i].Newspaper::Scanf_obj();
+		}
+	}
+	virtual void Show_obj(){
+		for(int i=0;i<ne.size();i++)
+			ne[i].Newspaper::Show_obj();
 	}
 };
 class magazin :public Object {
 private:
-	char type[33];
-	unsigned int num;
-	unsigned int pages;
-	char pub;
+	//char type[33];
+	//unsigned int num;
+	//unsigned int pages;
+	//char pub;
 public:
-
+	virtual void Scanf_obj(){
+		Object::Scanf_obj();
+	}
+	virtual void Show_obj(){
+		Object::Show_obj();
+	}
 };
-class Newspapers :public Object {
-private :
-	Date ta;
-
-};
-class Books{
-	static int BooksNumbers;
+class magazins{
+	magazin maa;
+	int magazinsNumbers;
+	vector <magazin> ma;
 public:
-	Book *bo;
-	bo = new Book[BooksNumbers];
-/*
-	void Add_Books(){
-		bookCopy = new Books[BooksNumbers];
-		cout<<"Enter How many Book Details you want enter:";
-		cin>>BookNumber;
-		BooksNumbers+=BookNumber;
-		bookCopy=book;								//؟؟؟!!
-		book = new Books[BooksNumbers];
-		for(int i=0;i<BooksNumbers;i++){
-			cout<<"Enter Name: ";
-			cin>>book->BookName;
+	virtual void Scanf_obj(){
+		cout<<"How many magazin details do you want to enter: ";
+		cin>>magazinsNumbers;
+		for(int i=0;i<magazinsNumbers;i++){
+			ma.push_back(maa);
+			ma[i].magazin::Scanf_obj();
 		}
-*/
+	}
+	virtual void Show_obj(){
+		for(int i=0;i<ma.size();i++)
+			ma[i].magazin::Show_obj();
+	}
 };
 int main()
 {
-	//Books b;
-	//b.InputBooks();
-	//b.ShowAll();
+	Books b;
+	b.Scanf_obj();
+	b.Show_obj();
     return 0;
 }
 
