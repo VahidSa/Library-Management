@@ -3,11 +3,11 @@
 #include <fstream>
 using namespace std;
 class Date {
-private :
+private:
 	int Day;
 	int Month;
 	int Year;
-public :
+public:
 	void input_date(void) {
 		cout << "please Enter the date of the topic : " << endl;
 		cin >> this->Day;
@@ -21,13 +21,13 @@ public :
 	}
 };
 class address {
-private :
+private:
 	char city[33];
 	char street[33];
 	char ave[33];
 	int pelak;
 	long int postal_code;
-public :
+public:
 	virtual void scan_address(void) {
 		cout << "please Enter the name of the city : " << endl;
 		cin >> this->city;
@@ -40,7 +40,7 @@ public :
 		cout << "please Enter the postal code : " << endl;
 		cin >> this->postal_code;
 	}
-	virtual void print_address(void){
+	virtual void print_address(void) {
 		cout << "the city of the exact person is equal with : " << endl;
 		cout << this->city;
 		cout << "the street of the exact person is equal with : " << endl;
@@ -54,15 +54,14 @@ public :
 	}
 };
 class person {
-private :
+public:
 	int birth_Day;
 	int birth_month;
 	int birth_year;
-	char first_name[333];
-	char last_name[333];
+	string first_name;
+	string last_name;
 	long int personal_code;
 	friend void print_person(person);
-public :
 	virtual void show_person(void) {
 		cout << "the birth day of the person is equal with : " << endl;
 		cout << this->birth_Day;
@@ -91,9 +90,9 @@ public :
 	}
 
 };
-class worker :public person ,public address{
-private :
-	char job[33];
+class worker :public person, public address {
+private:
+	string job;
 	long int salery;
 public:
 	virtual void scan_address(void) {
@@ -102,7 +101,7 @@ public:
 	virtual void print_address(void) {
 		address::print_address();
 	}
-	virtual void scan_person(void){
+	virtual void scan_person(void) {
 		person::scan_person();
 		cout << "please Enter the job of the exact person : " << endl;
 		cin >> this->job;
@@ -116,13 +115,50 @@ public:
 		cout << "the salery of the exact person is equal with : " << endl;
 		cout << this->salery << endl;
 	}
+	worker &operator=(const worker &w){
+		first_name = w.first_name;
+		last_name = w.last_name;
+		personal_code = w.personal_code;
+		job = w.job;
+		salery = w.salery;
+		return *this;
+	}
 };
-class member :public person,public address {
+class workers {
 private :
-	char type[33];
-	char licence[33];
-	int time;
+	int plenty_worker=0;
+	int n;
+	worker karmand;
+	vector <worker> karmandan;
 public :
+	void scan_workers(void) {
+		cout << "please Enter the plenty of the workers : " << endl;
+		cin >> n;
+		for (int i = 0;i < n;i++) {
+			karmandan.push_back(karmand);
+			karmandan[i+plenty_worker].worker::scan_person();
+		}
+		plenty_worker += n;
+		cout << "the information of the workers have been successfuly Entered." << endl;
+	}
+	void print_workers(void) {
+		cout << "the plenty of the workers is equal with : " << endl;
+		cout << this->plenty_worker;
+		cout << "the information's are equal with : " << endl;
+		for (int i = 0;i < this->plenty_worker;i++) {
+			cout << "the info of the " << i + 1 << " worker is equal with : " << endl;
+			karmandan[i].worker::show_person();
+			karmandan[i].worker::print_address();
+		}
+		cout << "the information's have been successfuly Entered." << endl;
+	}
+};
+class member :public person, public address {
+private:
+	string type;
+	string licence;
+	int time;
+public:
 	virtual void scan_address(void) {
 		address::scan_address();
 	}
@@ -147,131 +183,706 @@ public :
 		cout << "the length of the membership of the exact person is equal with : " << endl;
 		cout << this->time;
 	}
-/*
-	member operator == (const member &local) {
+	member &operator=(const member &m){
+		first_name = m.first_name;
+		last_name = m.last_name;
+		personal_code = m.personal_code;
+		type = m.type;
+		licence = m.licence;
+		return *this;
+	}
+};
+class Members {
+private :
+	member ozv;
+	vector <member> ozvha;
+	int plenty_members;
+	int n;
+public :
+	void scan_members(void) {
+		cout << "please Enter the plenty of the member's that you want to Enter : " << endl;
+		cin >> n;
+		for (int i = 0;i < n;i++) {
+			cout << "please Enter the informatin about the " << plenty_members + 1 << " member : " << endl;
+			ozvha.push_back(ozv);
+			ozvha[plenty_members+i].member::scan_person();
+			ozvha[plenty_members+i].member::scan_address();
+		}
+		plenty_members += n;
+		cout << "the information's have been successfuly scanned." << endl;
+	}
+	void print_members(void) {
+		cout << "the plenty of the member is equal with : " << endl;
+		cout << this->plenty_members;
+		cout << "the information about the members is equal with : " << endl;
+		for (int i = 0;i < this->plenty_members;i++) {
+			cout << "the info about the " << i + 1 << " member is equal whith : " << endl;
+			ozvha[i].member::show_person();
+			ozvha[i].member::print_address();
+		}
+		cout << "the information's haven successfuly printed." << endl;
+	}
+};
+class Booker :public person, public address {
+private:
+	long int salery;
+public:
+	virtual void scan_address(void) {
+		address::scan_address();
+	}
+	virtual void print_address(void) {
+		address::print_address();
+	}
+	virtual void scan_person(void) {
+		person::scan_person();
+		cout << "please Enter the salery of the exact person : " << endl;
+		cin >> this->salery;
+	}
+	virtual void show_person(void) {
+		person::show_person();
+		cout << "the salery of the exact person is equal with : " << endl;
+		cout << this->salery << endl;
+	}
+	/*
+	bool operator == (const Book &local) {
 
 	}
-*/
+	*/
+	Booker &operator=(const Booker &b){
+		first_name = b.first_name;
+		last_name = b.last_name;
+		personal_code = b.personal_code;
+		salery = b.salery;
+		return *this;
+	}
 };
-
+class Bookers {
+private :
+	Booker ketabdar;
+	vector <Booker> bos;
+	int plenty_bookers;
+	int n;
+public :
+	void scan_bookers(void) {
+		cout << "please Enter the information's about the booker's : " << endl;
+		cin >> n;
+		for (int i = 0;i < n;i++) {
+			cout << "please Enter the informatin about the " << plenty_bookers + 1 << " Booker : " << endl;
+			bos.push_back(ketabdar);
+			bos[plenty_bookers+i].Booker::scan_person();
+			bos[plenty_bookers+i].Booker::scan_address();
+		}
+		plenty_bookers += n;
+		cout << "you have successfuly Entered the information's of the bookers." << endl;
+	}
+	void print_bookers(void) {
+		cout << "the plenty of  the bookers in the exact library is equal with : " << endl;
+		cout << this->plenty_bookers;
+		for (int i;i < this->plenty_bookers;i++) {
+			cout << "the information's about the " << i + 1 << " booker is equal with : " << endl;
+			bos[i].Booker::show_person();
+			bos[i].Booker::print_address();
+		}
+		cout << "the information about the booker's have been printed successfuly." << endl;
+	}
+};
 class Object {
-	public :
-	char Name[33];
+public:
+	string Name;
 	double price;
+	bool barrow = false;
 	Date ta;
-	virtual void Scanf_obj(){
-		cout<<"Enter Name: ";
-		cin>>this->Name;
-		cout<<"Enter price: ";
-		cin>>this->price;
-	//	cout<<"Enter Date of publish: ";
-	//	cin>>this->ta;
+	virtual void Scanf_obj() {
+		cout << "Enter Name: ";
+		cin >> this->Name;
+		cout << "Enter price: ";
+		cin >> this->price;
+		//	cout<<"Enter Date of publish: ";
+		//	cin>>this->ta;
 	}
-	virtual void Show_obj(){
-		cout<<"Name: "<<this->Name<<endl;
-		cout<<"Price: "<<this->price<<endl;
-	//	cout<<"Date of publish: "<<this->ta;
+	virtual void Show_obj() {
+		cout << "Name: " << this->Name << endl;
+		cout << "Price: " << this->price << endl;
+		//	cout<<"Date of publish: "<<this->ta;
 	}
+	//virtual bool barrow(char*) = 0;
 };
-class Book: public Object{
+class Book : public Object {
 public:
 	long int BookISBN;
-	char BookWriter[30];	//string
-	virtual void Scanf_obj(){
+	string BookWriter;	//string
+	virtual void Scanf_obj() {
 		Object::Scanf_obj();
-		cout<<"Enter ISBN: ";
-		cin>>this->BookISBN;
-		cout<<"Enter Name of BookWriter: ";
-		cin>>this->BookWriter;
+		cout << "Enter ISBN: ";
+		cin >> this->BookISBN;
+		cout << "Enter Name of BookWriter: ";
+		cin >> this->BookWriter;
 	}
-	virtual void Show_obj(){
+	virtual void Show_obj() {
 		Object::Show_obj();
-		cout<<"ISBN: "<<this->BookISBN<<endl;
-		cout<<"Name of BookWriter: "<<this->BookWriter<<endl;
+		cout << "ISBN: " << this->BookISBN << endl;
+		cout << "Name of BookWriter: " << this->BookWriter << endl;
+	}
+	Book &operator=(const Book &b) {
+		Name = b.Name;
+		this->price = b.price;
+		this->BookISBN = b.BookISBN;
+		this->BookWriter = b.BookWriter;
+		return *this;
+	}
+	bool operator == (const Book &local) {
+		bool check = false;
+		if (this->Name == local.Name) {
+			if (this->price == local.price) {
+				if (this->barrow == local.barrow) {
+					if (this->BookISBN == local.BookISBN) {
+						if (this->BookWriter == local.BookWriter) {
+							check = true;
+							return check;
+						}
+					}
+				}
+			}
+		}
+		return check;
 	}
 };
-class Books{
+class Books {
 	Book boo;
-	int BooksNumbers;
+	int BooksNumbers=0;
+	int n;
 	vector <Book> bo;
 public:
-	virtual void Scanf_obj(){
-		cout<<"How many book details do you want to enter: ";
-		cin>>BooksNumbers;
-		for(int i=0;i<BooksNumbers;i++){
-			bo.push_back(boo);
-			bo[i].Book::Scanf_obj();
-		}
+	Book &operator[](const int index){
+		return bo[index];
 	}
-	virtual void Show_obj(){
-		for(int i=0;i<bo.size();i++)
+	void Scanf_obj() {
+		cout << "How many book details do you want to enter: ";
+		cin >> n;
+		for (int i=0 ; i<n ;i++) {
+			bo.push_back(boo);
+			bo[BooksNumbers+i].Book::Scanf_obj();
+		}
+		BooksNumbers += n ;
+	}
+	void Show_obj() {
+		for (int i = 0;i<bo.size();i++)
 			bo[i].Book::Show_obj();
 	}
+	bool barrow_book(void) {
+		bool check = false;
+		string name;
+		int serial_book;
+		cout << "if you want to search by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : " << endl;
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the name of the book that you want to search for it : " << endl;
+			cin >> name;
+			for (int i = 0;i < BooksNumbers;i++) {
+				if (bo[i].Name == name) {
+					if (bo[i].barrow == false) {
+						check = true;
+						bo[i].barrow = check;
+						cout << "the Entered book has been succssesfully barrowed." << endl;
+						return check;
+					}
+					else {
+						cout << "the exact book that you Entered was barrowed before." << endl;
+						return check;
+					}
+				}
+			}
+			cout << "the exact book wasn't in the directory to barrow it" << endl;
+			return check;
+		}
+		if (e == 1) {
+			cout << "please Enter the serial number of the book that you want to barrow : " << endl;
+			cin >> serial_book;
+			for (int i = 0;i < BooksNumbers;i++) {
+				if (bo[i].BookISBN == serial_book) {
+					if (bo[i].barrow == false) {
+						check = true;
+						bo[i].barrow = check;
+						cout << "the Entered book has been succssesfully barrowed." << endl;
+						return check;
+					}
+					else {
+						cout << "the exact book that you Entered was barrowed before." << endl;
+						return check;
+					}
+				}
+			}
+			cout << "the exact book wasn't in the directory to barrow it" << endl;
+			return check;
+		}
+	}
+
+	bool Search_book(void){
+		bool check=false;
+		string name;
+		int serial_book;
+		cout << "if you want to search by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : " << endl;
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the name of the book that you want to search for it : " << endl;
+			cin >> name;
+			for (int i = 0;i < BooksNumbers;i++) {
+				if (bo[i].Name == name) {
+					check = true;
+					return check;
+				}
+				else{
+					return check;
+				}
+			}
+		}
+		return check;
+		if (e == 1) {
+			cout << "please Enter the serial number of the book that you want to barrow : " << endl;
+			cin >> serial_book;
+			for (int i = 0;i < BooksNumbers;i++) {
+				if (bo[i].BookISBN == serial_book) {
+					check = true;
+					return check;
+				}
+				else {
+					return check;
+				}
+			}
+		}
+			return check;
+	}
 };
-class Newspaper: public Object {
+class Newspaper : public Object {
 public:
-	virtual void Scanf_obj(){
+	int serial_ISBN;
+	char pub[33];
+	virtual void Scanf_obj() {
 		Object::Scanf_obj();
+		cout << "please Enter the serial number of the newspaper : " << endl;
+		cin >> this->serial_ISBN;
+		cout << "please Enter the name of the publication : " << endl;
+		cin >> this->pub;
 	}
-	virtual void Show_obj(){
+	virtual void Show_obj() {
 		Object::Show_obj();
+		cout << "the serial number of the newspaper is equal with : " << endl;
+		cout << this->serial_ISBN;
+		cout << "the name of the publication is equal with : " << endl;
+		cout << this->pub;
+	}
+	bool operator == (const Newspaper &local) {
+		bool check = false;
+		if (this->Name == local.Name) {
+			if (this->price == local.price) {
+				if (this->barrow == local.barrow) {
+					if (this->serial_ISBN == local.serial_ISBN) {
+							check = true;
+							return check;
+					}
+				}
+			}
+		}
+		return check;
+	}
+	Newspaper &operator=(const Newspaper &n){
+		Name = n.Name;
+		price = n.price;
+		return *this;
 	}
 };
-class Newspapers{
+class Newspapers {
+private :
 	Newspaper nee;
-	int NewspapersNumbers;
+	int NewspapersNumbers=0;
+	int n;
 	vector <Newspaper> ne;
 public:
-	virtual void Scanf_obj(){
-		cout<<"How many newspaper details do you want to enter: ";
-		cin>>NewspapersNumbers;
-		for(int i=0;i<NewspapersNumbers;i++){
+	virtual void Scanf_obj() {
+		cout << "How many newspaper details do you want to enter: ";
+		cin >> n;
+		for (int i = 0;i<n;i++) {
 			ne.push_back(nee);
-			ne[i].Newspaper::Scanf_obj();
+			ne[NewspapersNumbers+i].Newspaper::Scanf_obj();
 		}
+		NewspapersNumbers += n;
 	}
-	virtual void Show_obj(){
-		for(int i=0;i<ne.size();i++)
+	virtual void Show_obj() {
+		for (int i = 0;i<ne.size();i++)
 			ne[i].Newspaper::Show_obj();
 	}
-};
-class magazin :public Object {
-private:
-	//char type[33];
-	//unsigned int num;
-	//unsigned int pages;
-	//char pub;
-public:
-	virtual void Scanf_obj(){
-		Object::Scanf_obj();
+	Newspaper &operator[](const int index){
+		return ne[index];
 	}
-	virtual void Show_obj(){
-		Object::Show_obj();
+	bool Search_newspaper(void){
+		bool check=false;
+		string name;
+		int serial_newspaper;
+		cout << "if you want to search by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : " << endl;
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the name of the newspaper that you want to search for it : " << endl;
+			cin >> name;
+			for (int i = 0;i < NewspapersNumbers;i++) {
+				if (ne[i].Name == name) {
+					check = true;
+					return check;		//return true
+				}
+			}
+			return check;
+		}
+		return check;
+		if (e == 1) {
+			cout << "please Enter the serial number of the newspaper that you want to search : " << endl;
+			cin >> serial_newspaper;
+			for (int i = 0;i < NewspapersNumbers;i++) {
+				if (ne[i].serial_ISBN == serial_newspaper) {
+						check = true;
+						return check;
+				}
+			}
+		}
+		return check;
 	}
-};
-class magazins{
-	magazin maa;
-	int magazinsNumbers;
-	vector <magazin> ma;
-public:
-	virtual void Scanf_obj(){
-		cout<<"How many magazin details do you want to enter: ";
-		cin>>magazinsNumbers;
-		for(int i=0;i<magazinsNumbers;i++){
-			ma.push_back(maa);
-			ma[i].magazin::Scanf_obj();
+	bool barrow_news(void) {
+		bool check = false;
+		int serial_newspaper;
+		string name_newspaper;
+		cout << "if you want to search by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : " << endl;
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the name of the book that you want to search for it : " << endl;
+			cin >> name_newspaper;
+			for (int i = 0;i < NewspapersNumbers;i++) {
+				if (ne[i].Name == name_newspaper) {
+					if (ne[i].barrow == false) {
+						check = true;
+						ne[i].barrow = check;
+						cout << "the Entered book has been succssesfully barrowed." << endl;
+						return check;
+					}
+					else {
+						cout << "the exact book that you Entered was barrowed before." << endl;
+						return check;
+					}
+				}
+			}
+			cout << "the exact book wasn't in the directory to barrow it" << endl;
+			return check;
+		}
+		if (e == 1) {
+			cout << "please Enter the serial number of the book that you want to barrow : " << endl;
+			cin >> serial_newspaper;
+			for (int i = 0;i < serial_newspaper;i++) {
+				if (ne[i].serial_ISBN == serial_newspaper) {
+					if (ne[i].barrow == false) {
+						check = true;
+						ne[i].barrow = check;
+						cout << "the Entered book has been succssesfully barrowed." << endl;
+						return check;
+					}
+					else {
+						cout << "the exact book that you Entered was barrowed before." << endl;
+						return check;
+					}
+				}
+			}
+			cout << "the exact book wasn't in the directory to barrow it" << endl;
+			return check;
 		}
 	}
-	virtual void Show_obj(){
-		for(int i=0;i<ma.size();i++)
-			ma[i].magazin::Show_obj();
+
+};
+class magazin :public Object {
+public :
+	string type;
+	unsigned int serial_ISBN;
+	unsigned int pages;
+	string pub;
+	virtual void Scanf_obj() {
+		Object::Scanf_obj();
+		cout << "please Enter the type of the magazin : " << endl;
+		cin >> this->type;
+		cout << "please Enter the serial number of the magazin : " << endl;
+		cin >> this->serial_ISBN;
+		cout << "please Enter the plenty of the pages of the magazin : " << endl;
+		cin >> this->pages;
+		cout << "please Enter the name of the publication : " << endl;
+		cin >> this->pub;
+	}
+	virtual void Show_obj() {
+		Object::Show_obj();
+		cout << "the type of the magazin is equal with : " << endl;
+		cout << this->type;
+		cout << "the serial number of the magazin is equal with : " << endl;
+		cout << this->serial_ISBN;
+		cout << "the number of the pages of the magazin is equal with : " << endl;
+		cout << this->pages;
+		cout << "the name of the publication is equal with : " << endl;
+		cout << this->pub;
+	}
+	bool operator == (const magazin &local) {
+		bool check = false;
+		if (this->Name == local.Name) {
+			if (this->price == local.price) {
+				if (this->barrow == local.barrow) {
+					if (this->serial_ISBN == local.serial_ISBN) {
+						if (this->pages == local.pages) {
+							if (this->type == local.type) {
+								if (this->pub == local.pub) {
+									check = true;
+									return check;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return check;
+	}
+	magazin &operator=(const magazin &b){
+		Name = b.Name;
+		price = b.price;
+		return *this;
 	}
 };
-int main()
-{
+class magazins {
+	magazin maa;
+	int magazinsNumbers=0;
+	int n;
+	vector <magazin> ma;
+public:
+	virtual void Scanf_obj() {
+		cout << "How many magazin details do you want to enter: ";
+		cin >> n;
+		for (int i=0 ; i<n ; i++) {
+			ma.push_back(maa);
+			ma[magazinsNumbers+i].magazin::Scanf_obj();
+		}
+		magazinsNumbers += n ;
+	}
+	virtual void Show_obj() {
+		for (int i = 0;i<ma.size();i++)
+			ma[i].magazin::Show_obj();
+	}
+	magazin &operator[](const int index){
+		return ma[index];
+	}
+	bool Search_magazin(void){
+		bool check=false;
+		string name;
+		int serial_magazin;
+		cout << "if you want to search by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : " << endl;
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the name of the magazin that you want to search for it : " << endl;
+			cin >> name;
+			for (int i = 0;i < magazinsNumbers;i++) {
+				if (ma[i].Name == name) {
+					check = true;
+					return check;
+				}
+			}
+			return check;
+		}
+		if (e == 1) {
+			cout << "please Enter the serial number of the magazin that you want to search : " << endl;
+			cin >> serial_magazin;
+			for (int i = 0;i < magazinsNumbers;i++) {
+				if (ma[i].serial_ISBN == serial_magazin) {
+						check = true;
+						return check;
+				}
+			}
+		return check;
+		}
+	}
+	bool barrow_magazin(void) {
+		bool check = false;
+		int serial_magazin;
+		char name_magazin[33];
+		cout << "if you want to search by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : " << endl;
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the name of the book that you want to search for it : " << endl;
+			cin >> name_magazin;
+			for (int i = 0;i < this->magazinsNumbers;i++) {
+				if (ma[i].Name == name_magazin) {
+					if (ma[i].barrow == false) {
+						check = true;
+						ma[i].barrow = check;
+						cout << "the Entered magazin has been succssesfully barrowed." << endl;
+						return check;
+					}
+					else {
+						cout << "the exact magazin that you Entered was barrowed before." << endl;
+						return check;
+					}
+				}
+			}
+			cout << "the exact book wasn't in the directory to barrow it" << endl;
+			return check;
+		}
+		if (e == 1) {
+			cout << "please Enter the serial number of the book that you want to barrow : " << endl;
+			cin >> serial_magazin;
+			for (int i = 0;i < this->magazinsNumbers;i++) {
+				if (ma[i].serial_ISBN == serial_magazin) {
+					if (ma[i].barrow == false) {
+						check = true;
+						ma[i].barrow = check;
+						cout << "the Entered book has been succssesfully barrowed." << endl;
+						return check;
+					}
+					else {
+						cout << "the exact book that you Entered was barrowed before." << endl;
+						return check;
+					}
+				}
+			}
+			cout << "the exact book wasn't in the directory to barrow it" << endl;
+			return check;
+		}
+	}
+};
+int main(){
 	Books b;
-	b.Scanf_obj();
-	b.Show_obj();
-    return 0;
-}
+	Newspapers n;
+	magazins mag;
+	Members mem;
+	workers wr;
+	Bookers br;
+	int ch=1;
+	while(ch!=0){
+		cout << "1.Add Member\t";
+		cout << "2.Add Booker\t";
+		cout << "3.Add Worker\t";
+		cout << "4.Add Book\t";
+		cout << "5.Add Newspaper\t";
+		cout << "6.Add Magazin"<<endl<<endl;
+		cout << "7.Show All Members Details\t";
+		cout << "8.Show All Bookers Details\t";
+		cout << "9.Show All Workers Details\t";
+		cout << "10.Show All Books Details\t";
+		cout << "11.Show All Newspaper Details\t";
+		cout << "12.Show All Magazin Details"<< endl<<endl;
+		cout << "13.barrow Book\t";
+		cout << "14.barrow Newspaper\t";
+		cout << "15.barrow Magazin\t"<<endl<<endl;
+		cout << "16.Search Book\t";
+		cout << "17.Search Magazin\t";
+		cout << "18.Search Newspaper"<<endl<<endl;
+		cin>>ch;
+		if (ch < 1 || ch > 25) {
+			do {
+				cout << "the number that you Entered is invalid please try again : " << endl;
+				cin >> ch;
+			} while (ch < 1 || ch > 25);
+		}
+		cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		switch (ch){
+			case 1:
+				mem.scan_members();
+				break;
+			case 2 :
+				br.scan_bookers();
+				break;
+			case 3 :
+				wr.scan_workers();
+				break;
+			case 4:
+				b.Scanf_obj();
+				break;
+			case 5 :
+				n.Scanf_obj();
+				break;
+			case 6 :
+				mag.Scanf_obj();
+				break;
+			case 7:
+				mem.print_members();
+				break;
+			case 8 :
+				br.print_bookers();
+				break;
+			case 9 :
+				wr.print_workers();
+				break;
+			case 10:
+				b.Show_obj();
+				break;
+			case 11:
+				n.Show_obj();
+				break;
+			case 12:
+				mag.Show_obj();
+				break;
+			case 13:
+				b.barrow_book();
+				break;
+			case 14:
+				n.barrow_news();
+				break;
+			case 15:
+				mag.barrow_magazin();
+				break;
+			case 16:
+				b.Search_book();
+				break;
+			case 17:
+				mag.Search_magazin();
+				break;
+			case 18:
+				n.Search_newspaper();
+				break;
 
+
+			default:
+				break;
+			}
+	}
+	return 0;
+}
