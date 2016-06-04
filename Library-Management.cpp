@@ -2,24 +2,6 @@
 #include <vector>
 #include <fstream>
 using namespace std;
-class Date {
-private:
-	int Day;
-	int Month;
-	int Year;
-public:
-	void input_date(void) {
-		cout << "please Enter the date of the topic : " << endl;
-		cin >> this->Day;
-		cout << "please Enter thr month of the topic : " << endl;
-		cin >> this->Month;
-		cout << "please Enter the year of the topic : " << endl;
-		cin >> this->Year;
-	}
-	void output_date(void) {
-		cout << "the day of the exact topic is equal with : " << endl;
-	}
-};
 class address {
 private:
 	char city[33];
@@ -131,6 +113,63 @@ private :
 	worker karmand;
 	vector <worker> karmandan;
 public :
+	worker &operator[](const int index){
+		for(int i=0; i<plenty_worker;i++)
+			if(index == karmandan[i].personal_code)
+				return karmandan[i];
+	}
+	void Edit(void) {
+	  string Fname;
+	  string Lname;
+	  int serial;
+	  int i;
+	  cout << "if you want to Edit by serial Enter <1> or by name Enter <2> : " << endl;
+	  int e;
+	  cin >> e;
+	  if (e != 1 || e != 2) {
+	    do {
+	      cout << "the number that you Entered is irrelevant please try again : " << endl;
+	      cin >> e;
+	    } while (e != 1 || e != 2);
+	  }
+	  if (e == 2) {
+	    cout << "please Enter the first name of that you want to Edit for it : " << endl;
+	    cin >> Fname;
+	    cout << "please Enter the first name of that you want to Edit for it : " << endl;
+	    cin >> Lname;
+	    for (i = 0;i < plenty_worker;i++)
+	      if (karmandan[i].first_name == Fname)
+	        if(karmandan[i].last_name == Lname)
+	          karmandan[i].worker::scan_person();
+	    if(i==plenty_worker && karmandan[i].last_name != Lname)
+	      cout << "this wasn't in the directory" << endl;
+	  }
+	  if (e == 1) {
+	    cout << "please Enter the serial number of that you want to Edit it : " << endl;
+	    cin >> serial;
+	    for (i = 0;i < plenty_worker;i++)
+	      if (karmandan[i].personal_code == serial)
+	          karmandan[i].worker::scan_person();
+	    if(i==plenty_worker && karmandan[i].personal_code != serial)
+	      cout << "this wasn't in the directory" << endl;
+	  }
+	 }
+	  void Delete(void) {
+	    string name;
+	    string Fname;
+	    string Lname;
+	    int i;
+	    cout << "please Enter the first name of that you want to Delete  it : " << endl;
+	    cin >> Fname;
+	    cout << "please Enter the last name of that you want to Delete  it : " << endl;
+	    cin >> Fname;
+	    for (i = 0;i < plenty_worker;i++)
+	      if (karmandan[i].first_name == Fname)
+	        if(karmandan[i].last_name == Lname)
+	          karmandan.erase(karmandan.begin()+i);
+	    if(i==plenty_worker && karmandan[i].last_name != Lname)
+	      cout << "this wasn't in the directory" << endl;
+	  }
 	void scan_workers(void) {
 		cout << "please Enter the plenty of the workers : " << endl;
 		cin >> n;
@@ -152,6 +191,47 @@ public :
 		}
 		cout << "the information's have been successfuly Entered." << endl;
 	}
+	bool Search_Workers(void){
+		bool check = false;
+		string name;
+		string Fname;
+		string Lname;
+		long int serial;
+		cout << "if you want to search by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : ";
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the first name of that you want to search for it : ";
+			cin >> Fname;
+			cout << "please Enter the first name of that you want to search for it : ";
+			cin >> Lname;
+			for (int i = 0;i < plenty_worker;i++) {
+				if (karmandan[i].first_name == Fname)
+					if(karmandan[i].last_name == Lname)
+						return true;
+			}
+			return true;
+		}
+		if (e == 1) {
+			cout << "please Enter the serial number of that you want to search : " << endl;
+			cin >> serial;
+			for (int i = 0;i < plenty_worker;i++) {
+				if (karmandan[i].personal_code == serial) {
+					check = true;
+					return check;
+				}
+			}
+			return check;
+		}
+		return check;
+	}
+
 };
 class member :public person, public address {
 private:
@@ -199,6 +279,63 @@ private :
 	int plenty_members;
 	int n;
 public :
+	member &operator[](const int index){
+		for(int i=0; i<plenty_members;i++)
+			if(index == ozvha[i].personal_code)
+				return ozvha[i];
+	}
+	void Edit(void) {
+		string Fname;
+		string Lname;
+		int serial;
+		int i;
+		cout << "if you want to Edit by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : " << endl;
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the first name of that you want to Edit for it : " << endl;
+			cin >> Fname;
+			cout << "please Enter the first name of that you want to Edit for it : " << endl;
+			cin >> Lname;
+			for (i = 0;i < plenty_members;i++)
+				if (ozvha[i].first_name == Fname)
+					if(ozvha[i].last_name == Lname)
+						ozvha[i].member::scan_person();
+			if(i==plenty_members && ozvha[i].last_name != Lname)
+				cout << "this wasn't in the directory" << endl;
+		}
+		if (e == 1) {
+		  cout << "please Enter the serial number of that you want to Edit it : " << endl;
+		  cin >> serial;
+		  for (int i = 0;i < plenty_members;i++)
+		    if (ozvha[i].personal_code == serial)
+		        ozvha[i].member::scan_person();
+		  if(i==plenty_members && ozvha[i].personal_code != serial)
+		    cout << "this wasn't in the directory" << endl;
+		}
+	}
+		void Delete(void) {
+			string name;
+			string Fname;
+			string Lname;
+			int i;
+			cout << "please Enter the nFirst ame of that you want to Delete  it : " << endl;
+			cin >> Fname;
+			cout << "please Enter the Last name of that you want to Delete  it : " << endl;
+			cin >> Lname;
+			for (i = 0;i < plenty_members;i++)
+				if (ozvha[i].first_name == Fname)
+					if(ozvha[i].last_name == Lname)
+						ozvha.erase(ozvha.begin()+i);
+			if(i==plenty_members && ozvha[i].last_name != Lname)
+				cout << "this wasn't in the directory" << endl;
+		}
 	void scan_members(void) {
 		cout << "please Enter the plenty of the member's that you want to Enter : " << endl;
 		cin >> n;
@@ -222,6 +359,45 @@ public :
 		}
 		cout << "the information's haven successfuly printed." << endl;
 	}
+	bool Search_members(void){
+		bool check = false;
+		string Fname;
+		string Lname;
+		long int serial;
+		cout << "if you want to search by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : ";
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the first name of that you want to search for it : ";
+			cin >> Fname;
+			cout << "please Enter the first name of that you want to search for it : ";
+			cin >> Lname;
+			for (int i = 0;i < plenty_members;i++) {
+				if (ozvha[i].first_name == Fname)
+					if(ozvha[i].last_name == Lname)
+						return true;
+			}
+			return true;
+		}
+		if (e == 1) {
+			cout << "please Enter the serial number of that you want to search it: " << endl;
+			cin >> serial;
+			for (int i = 0;i < plenty_members;i++) {
+				if (ozvha[i].personal_code == serial) {
+					check = true;
+					return check;
+				}
+			}
+			return check;
+		}
+	return check;
+	}
 };
 class Booker :public person, public address {
 private:
@@ -243,11 +419,7 @@ public:
 		cout << "the salery of the exact person is equal with : " << endl;
 		cout << this->salery << endl;
 	}
-	/*
-	bool operator == (const Book &local) {
 
-	}
-	*/
 	Booker &operator=(const Booker &b){
 		first_name = b.first_name;
 		last_name = b.last_name;
@@ -263,6 +435,63 @@ private :
 	int plenty_bookers;
 	int n;
 public :
+	Booker &operator[](const int index){
+		for(int i=0; i<plenty_bookers;i++)
+			if(index == bos[i].personal_code)
+				return bos[i];
+	}
+	void Edit(void) {
+	  string Fname;
+	  string Lname;
+	  int serial;
+	  int i;
+	  cout << "if you want to Edit by serial Enter <1> or by name Enter <2> : " << endl;
+	  int e;
+	  cin >> e;
+	  if (e != 1 || e != 2) {
+	    do {
+	      cout << "the number that you Entered is irrelevant please try again : " << endl;
+	      cin >> e;
+	    } while (e != 1 || e != 2);
+	  }
+	  if (e == 2) {
+	    cout << "please Enter the first name of that you want to Edit for it : " << endl;
+	    cin >> Fname;
+	    cout << "please Enter the first name of that you want to Edit for it : " << endl;
+	    cin >> Lname;
+	    for ( i = 0;i < plenty_bookers;i++)
+	      if (bos[i].first_name == Fname)
+	        if(bos[i].last_name == Lname)
+	          bos[i].Booker::scan_person();
+	    if(i==plenty_bookers && bos[i].last_name != Lname)
+	      cout << "this wasn't in the directory" << endl;
+	  }
+	  if (e == 1) {
+	    cout << "please Enter the serial number of that you want to Edit it : " << endl;
+	    cin >> serial;
+	    for (i = 0;i < plenty_bookers;i++)
+	      if (bos[i].personal_code == serial)
+	          bos[i].Booker::scan_person();
+	    if(i==plenty_bookers && bos[i].personal_code != serial)
+	      cout << "this wasn't in the directory" << endl;
+	  }
+	 }
+	  void Delete(void) {
+	    string name;
+	    string Fname;
+	    string Lname;
+	    int i;
+	    cout << "please Enter the first name of that you want to Delete  it : " << endl;
+	    cin >> Fname;
+	    cout << "please Enter the last name of that you want to Delete  it : " << endl;
+	    cin >> Lname;
+	    for (i = 0;i < plenty_bookers;i++)
+	      if (bos[i].first_name == Fname)
+	        if(bos[i].last_name == Lname)
+	          bos.erase(bos.begin()+i);
+	    if(i==plenty_bookers && bos[i].last_name != Lname)
+	      cout << "this wasn't in the directory" << endl;
+	  }
 	void scan_bookers(void) {
 		cout << "please Enter the information's about the booker's : " << endl;
 		cin >> n;
@@ -285,13 +514,51 @@ public :
 		}
 		cout << "the information about the booker's have been printed successfuly." << endl;
 	}
+	bool Search_Bookers(void){
+		bool check = false;
+		string Fname;
+		string Lname;
+		long int serial;
+		cout << "if you want to search by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : ";
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the first name of that you want to search for it : ";
+			cin >> Fname;
+			cout << "please Enter the first name of that you want to search for it : ";
+			cin >> Lname;
+			for (int i = 0;i < plenty_bookers;i++) {
+				if (bos[i].first_name == Fname)
+					if(bos[i].last_name == Lname)
+						return true;
+			}
+			return true;
+		}
+		if (e == 1) {
+			cout << "please Enter the serial number of that you want to search it: " << endl;
+			cin >> serial;
+			for (int i = 0;i < plenty_bookers;i++) {
+				if (bos[i].personal_code == serial) {
+					check = true;
+					return check;
+				}
+			}
+			return false;
+		}
+	return check;
+	}
 };
 class Object {
 public:
 	string Name;
 	double price;
 	bool barrow = false;
-	Date ta;
 	virtual void Scanf_obj() {
 		cout << "Enter Name: ";
 		cin >> this->Name;
@@ -356,6 +623,49 @@ public:
 	Book &operator[](const int index){
 		return bo[index];
 	}
+	void Edit(void) {
+		string name;
+		int serial;
+		int i;
+		cout << "if you want to Edit by serial Enter <1> or by name Enter <2> : " << endl;
+		int e;
+		cin >> e;
+		if (e != 1 || e != 2) {
+			do {
+				cout << "the number that you Entered is irrelevant please try again : " << endl;
+				cin >> e;
+			} while (e != 1 || e != 2);
+		}
+		if (e == 2) {
+			cout << "please Enter the name of that you want to Edit for it : " << endl;
+			cin >> name;
+			for (i = 0;i < BooksNumbers;i++)
+				if (bo[i].Name == name)
+					bo[i].Book::Scanf_obj();
+			if(i==BooksNumbers && bo[i].Name != name)
+				cout << "this wasn't in the directory" << endl;
+		}
+		if (e == 1) {
+			cout << "please Enter the serial number of that you want to Edit it : " << endl;
+			cin >> serial;
+			for (int i = 0;i < BooksNumbers;i++)
+				if (bo[i].BookISBN == serial)
+					bo[i].Book::Scanf_obj();
+			if(i==BooksNumbers && bo[i].Name != name)
+				cout << "this wasn't in the directory" << endl;
+		}
+	}
+		void Delete(){
+			string name;
+			int i;
+			cout << "please Enter the name of that you want to Delete  it : " << endl;
+			cin >> name;
+			for (i = 0;i < BooksNumbers;i++)
+				if (bo[i].Name == name)
+					bo.erase(bo.begin()+i);
+			if(i==BooksNumbers && bo[i].Name != name)
+				cout << "this wasn't in the directory" << endl;
+		}
 	void Scanf_obj() {
 		cout << "How many book details do you want to enter: ";
 		cin >> n;
@@ -422,8 +732,8 @@ public:
 			cout << "the exact book wasn't in the directory to barrow it" << endl;
 			return check;
 		}
+		return check;
 	}
-
 	bool Search_book(void){
 		bool check=false;
 		string name;
@@ -441,30 +751,24 @@ public:
 			cout << "please Enter the name of the book that you want to search for it : " << endl;
 			cin >> name;
 			for (int i = 0;i < BooksNumbers;i++) {
-				if (bo[i].Name == name) {
-					check = true;
-					return check;
-				}
-				else{
-					return check;
-				}
+				if (bo[i].Name == name)
+					return true;
 			}
+			return false;
 		}
 		return check;
 		if (e == 1) {
-			cout << "please Enter the serial number of the book that you want to barrow : " << endl;
+			cout << "please Enter the serial number of the book that you want to search it : " << endl;
 			cin >> serial_book;
 			for (int i = 0;i < BooksNumbers;i++) {
 				if (bo[i].BookISBN == serial_book) {
 					check = true;
 					return check;
 				}
-				else {
-					return check;
-				}
 			}
+			return true;
 		}
-			return check;
+		return false;
 	}
 };
 class Newspaper : public Object {
@@ -521,6 +825,28 @@ public:
 		}
 		NewspapersNumbers += n;
 	}
+	void Edit(void) {
+		string name;
+		int i;
+		cout << "please Enter the name of that you want to Edit for it : " << endl;
+		cin >> name;
+		for (i = 0;i < NewspapersNumbers;i++)
+			if (ne[i].Name == name)
+				ne[i].Newspaper::Scanf_obj();
+		if(i==NewspapersNumbers && ne[i].Name != name)
+			cout << "this wasn't in the directory" << endl;
+	}
+	void Delete(void) {
+		string name;
+		int i;
+		cout << "please Enter the name of that you want to Delete  it : " << endl;
+		cin >> name;
+		for (i = 0;i < NewspapersNumbers;i++)
+			if (ne[i].Name == name)
+				ne.erase(ne.begin()+i);
+		if(i==NewspapersNumbers && ne[i].Name != name)
+			cout << "this wasn't in the directory" << endl;
+	}
 	virtual void Show_obj() {
 		for (int i = 0;i<ne.size();i++)
 			ne[i].Newspaper::Show_obj();
@@ -552,7 +878,6 @@ public:
 			}
 			return check;
 		}
-		return check;
 		if (e == 1) {
 			cout << "please Enter the serial number of the newspaper that you want to search : " << endl;
 			cin >> serial_newspaper;
@@ -562,6 +887,7 @@ public:
 						return check;
 				}
 			}
+			return check;
 		}
 		return check;
 	}
@@ -618,6 +944,7 @@ public:
 			cout << "the exact book wasn't in the directory to barrow it" << endl;
 			return check;
 		}
+		return check;
 	}
 
 };
@@ -681,6 +1008,28 @@ class magazins {
 	int n;
 	vector <magazin> ma;
 public:
+	void Edit(void) {
+		string name;
+		int i;
+		cout << "please Enter the name of that you want to Edit  it : " << endl;
+		cin >> name;
+		for (i = 0;i < magazinsNumbers;i++)
+			if (ma[i].Name == name)
+				ma[i].magazin::Scanf_obj();
+		if(i==magazinsNumbers && ma[i].Name != name)
+			cout << "this wasn't in the directory" << endl;
+	}
+	void Delete(void) {
+		string name;
+		int i;
+		cout << "please Enter the name of that you want to Delete  it : " << endl;
+		cin >> name;
+		for (i = 0;i < magazinsNumbers;i++)
+			if (ma[i].Name == name)
+				ma.erase(ma.begin()+i);
+		if(i==magazinsNumbers && ma[i].Name != name)
+			cout << "this wasn't in the directory" << endl;
+	}
 	virtual void Scanf_obj() {
 		cout << "How many magazin details do you want to enter: ";
 		cin >> n;
@@ -732,6 +1081,7 @@ public:
 			}
 		return check;
 		}
+	return check;
 	}
 	bool barrow_magazin(void) {
 		bool check = false;
@@ -786,6 +1136,7 @@ public:
 			cout << "the exact book wasn't in the directory to barrow it" << endl;
 			return check;
 		}
+		return check;
 	}
 };
 int main(){
@@ -797,32 +1148,48 @@ int main(){
 	Bookers br;
 	int ch=1;
 	while(ch!=0){
-		cout << "1.Add Member\t";
-		cout << "2.Add Booker\t";
-		cout << "3.Add Worker\t";
-		cout << "4.Add Book\t";
-		cout << "5.Add Newspaper\t";
+		cout << "1.Add Member"<<endl<<endl;
+		cout << "2.Add Booker"<<endl<<endl;
+		cout << "3.Add Worker"<<endl<<endl;
+		cout << "4.Add Book"<<endl<<endl;
+		cout << "5.Add Newspaper"<<endl<<endl;
 		cout << "6.Add Magazin"<<endl<<endl;
-		cout << "7.Show All Members Details\t";
-		cout << "8.Show All Bookers Details\t";
-		cout << "9.Show All Workers Details\t";
-		cout << "10.Show All Books Details\t";
-		cout << "11.Show All Newspaper Details\t";
-		cout << "12.Show All Magazin Details"<< endl<<endl;
-		cout << "13.barrow Book\t";
-		cout << "14.barrow Newspaper\t";
-		cout << "15.barrow Magazin\t"<<endl<<endl;
-		cout << "16.Search Book\t";
-		cout << "17.Search Magazin\t";
+		cout << "7.Show All Members Details"<<endl<<endl;
+		cout << "8.Show All Bookers Details"<<endl<<endl;
+		cout << "9.Show All Workers Details"<<endl<<endl;
+		cout << "10.Show All Books Details"<<endl<<endl;
+		cout << "11.Show All Newspaper Details"<<endl<<endl;
+		cout << "12.Show All Magazin Details"<<endl<<endl;
+		cout << "13.barrow Book"<<endl<<endl;
+		cout << "14.barrow Newspaper"<<endl<<endl;
+		cout << "15.barrow Magazin"<<endl<<endl;
+		cout << "16.Search Book"<<endl<<endl;
+		cout << "17.Search Magazin"<<endl<<endl;
 		cout << "18.Search Newspaper"<<endl<<endl;
+		cout << "19.Search Members"<<endl<<endl;
+		cout << "20.Search Workers"<<endl<<endl;
+		cout << "21.Search Bookers"<<endl<<endl;
+		cout << "22.Edit Book"<<endl<<endl;
+		cout << "23.Edit Newspaper"<<endl<<endl;
+		cout << "24.Edit Magazin"<<endl<<endl;
+		cout << "25.Edit Member"<<endl<<endl;
+		cout << "26.Edit Worker"<<endl<<endl;
+		cout << "27.Edit Booker"<<endl<<endl;
+		cout << "28.Delete Book"<<endl<<endl;
+		cout << "29.Delete Newspaper"<<endl<<endl;
+		cout << "30.Delete Magazin"<<endl<<endl;
+		cout << "31.Delete Member"<<endl<<endl;
+		cout << "32.Delete Worker"<<endl<<endl;
+		cout << "33.Delete Booker"<<endl<<endl;
+		cout << "34.Exit"<<endl<<endl;
 		cin>>ch;
-		if (ch < 1 || ch > 25) {
+		if (ch < 1 || ch > 34) {
 			do {
 				cout << "the number that you Entered is invalid please try again : " << endl;
 				cin >> ch;
 			} while (ch < 1 || ch > 25);
 		}
-		cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		switch (ch){
 			case 1:
 				mem.scan_members();
@@ -878,8 +1245,54 @@ int main(){
 			case 18:
 				n.Search_newspaper();
 				break;
-
-
+			case 19:
+				mem.Search_members();
+				break;
+			case 20:
+				wr.Search_Workers();
+				break;
+			case 21:
+				br.Search_Bookers();
+				break;
+			case 22:
+				b.Edit();
+				break;
+			case 23:
+				n.Edit();
+				break;
+			case 24:
+				mag.Edit();
+				break;
+			case 25:
+				mem.Edit();
+				break;
+			case 26:
+				wr.Edit();
+				break;
+			case 27:
+				br.Edit();
+				break;
+			case 28:
+			  b.Delete();
+			  break;
+			case 29:
+			  n.Delete();
+			  break;
+			case 30:
+			  mag.Delete();
+			  break;
+			case 31:
+			  mem.Delete();
+			  break;
+			case 32:
+			  wr.Delete();
+			  break;
+			case 33:
+				br.Delete();
+				break;
+			case 34:
+				exit(0);
+				break;
 			default:
 				break;
 			}
